@@ -63,13 +63,13 @@
     <!--Display form-->
     <#if comments?has_content>
         <ol class="list-group list-group-numbered">
-            <#list comments as id, commentObject>
+            <#list comments as comment>
                 <li class="list-group-item d-flex justify-content-between align-items-start">
                     <div class="ms-2 me-auto">
-                        <div class="fw-bold">${commentObject.name}</div>
-                        ${commentObject.comment}
+                        <div class="fw-bold">${comment.name}</div>
+                        ${comment.comment}
                     </div>
-                    <span class="badge bg-primary rounded-pill">${commentObject.rating}</span>
+                    <span class="badge bg-primary rounded-pill">${comment.rating}</span>
                 </li>
             </#list>
         </ol>

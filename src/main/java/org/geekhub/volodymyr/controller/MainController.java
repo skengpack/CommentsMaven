@@ -18,14 +18,15 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String showComments(Model model, @RequestParam(required = false, defaultValue = "1") int currentPageNumber) {
-        commentsService.addAttributes(model, currentPageNumber);
+    public String showComments(Model model, @RequestParam(required = false, defaultValue = "1") int page) {
+        commentsService.addAttributes(model, page);
         return "comments";
     }
 
     @PostMapping("/")
     public String addComment(@ModelAttribute Comment comment) {
         commentsService.addComment(comment);
-        return "redirect:/";
+        int page = commentsService.getNumberOfAllPages();
+        return ("redirect:/?page=" + page);
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -27,37 +28,40 @@ public class CommentsService {
 
     public void addAttributes(Model model, int currentPage) {
         if (!comments.isEmpty()) {
-            int numberOfAllPages = getNumberOfAllPages(comments.size());
+            int numberOfAllPages = getNumberOfAllPages();
 
             if (currentPage < 1 || currentPage > numberOfAllPages) {
                 currentPage = 1;
                 model.addAttribute("pagingError", true);
             } else model.addAttribute("pagingError", false);
 
-            model.addAttribute("comments", getCommentsOnCurrentPage(currentPage));
+            model.addAttribute("comments", getCommentsListOnCurrentPage(currentPage));
 
             pagination.setPages(numberOfAllPages, currentPage);
             model.addAttribute("pagination", pagination.getPages());
         }
     }
 
-    private Map<Integer, Comment> getCommentsOnCurrentPage(int page) {
-        int startId = (page - 1) * COMMENTS_PER_ONE_PAGE + 1;
-        int endId = Math.min(page * COMMENTS_PER_ONE_PAGE, comments.size());
-
-        return comments.entrySet()
-                .stream()
-                .filter(entry -> entry.getKey() >= startId && entry.getKey() <= endId)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-    }
-
-    private int getNumberOfAllPages(int numberOfComments) {
+    public int getNumberOfAllPages() {
         int numberOfAllPages;
+
+        int numberOfComments = comments.size();
         if (numberOfComments % COMMENTS_PER_ONE_PAGE == 0) {
             numberOfAllPages = numberOfComments / COMMENTS_PER_ONE_PAGE;
         } else {
             numberOfAllPages = numberOfComments / COMMENTS_PER_ONE_PAGE + 1;
         }
         return numberOfAllPages;
+    }
+
+    private List<Comment> getCommentsListOnCurrentPage(int page) {
+        int startId = (page - 1) * COMMENTS_PER_ONE_PAGE + 1;
+        int endId = Math.min(page * COMMENTS_PER_ONE_PAGE, comments.size());
+
+        return comments.entrySet()
+                .stream()
+                .filter(entry -> entry.getKey() >= startId && entry.getKey() <= endId)
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
     }
 }
