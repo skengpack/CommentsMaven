@@ -1,7 +1,7 @@
-package org.geekhub.volodymyr.services;
+package org.geekhub.volodymyr.service;
 
-import org.geekhub.volodymyr.models.Comment;
-import org.geekhub.volodymyr.models.Pagination;
+import org.geekhub.volodymyr.model.Comment;
+import org.geekhub.volodymyr.model.Pagination;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -13,10 +13,9 @@ import java.util.stream.Collectors;
 @Service
 public class CommentsService {
     public static final int COMMENTS_PER_ONE_PAGE = 2;
-    Map<Integer, Comment> comments = new HashMap<>();
-    AtomicInteger commentId = new AtomicInteger(0);
-    final
-    Pagination pagination;
+    private final Map<Integer, Comment> comments = new HashMap<>();
+    private final AtomicInteger commentId = new AtomicInteger(0);
+    private final Pagination pagination;
 
     public CommentsService(Pagination pagination) {
         this.pagination = pagination;

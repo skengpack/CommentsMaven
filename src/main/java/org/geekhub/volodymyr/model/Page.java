@@ -1,4 +1,4 @@
-package org.geekhub.volodymyr.models;
+package org.geekhub.volodymyr.model;
 
 public class Page {
     private String visibilityParameter;

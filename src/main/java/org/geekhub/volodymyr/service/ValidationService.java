@@ -1,6 +1,6 @@
-package org.geekhub.volodymyr.services;
+package org.geekhub.volodymyr.service;
 
-import org.geekhub.volodymyr.models.Comment;
+import org.geekhub.volodymyr.model.Comment;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 

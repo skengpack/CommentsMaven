@@ -1,7 +1,7 @@
-package org.geekhub.volodymyr.controllers;
+package org.geekhub.volodymyr.controller;
 
-import org.geekhub.volodymyr.models.Comment;
-import org.geekhub.volodymyr.services.CommentsService;
+import org.geekhub.volodymyr.model.Comment;
+import org.geekhub.volodymyr.service.CommentsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +18,8 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String showComments(Model model, @RequestParam(required = false, defaultValue = "1") int page) {
-        commentsService.addAttributes(model, page);
+    public String showComments(Model model, @RequestParam(required = false, defaultValue = "1") int currentPageNumber) {
+        commentsService.addAttributes(model, currentPageNumber);
         return "comments";
     }
 
