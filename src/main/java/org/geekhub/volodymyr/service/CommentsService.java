@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class CommentsService {
-    public static final int COMMENTS_PER_ONE_PAGE = 2;
+    public static final int COMMENTS_PER_ONE_PAGE = 5;
     private final Map<Integer, Comment> comments = new HashMap<>();
     private final AtomicInteger commentId = new AtomicInteger(0);
     private final Pagination pagination;
